@@ -24,7 +24,7 @@ def train_loop(train_loader, backbone, diffusion, num_epochs=50):
             b_t, e_0 = diffusion.forward_kernel(b, t)
             b_0, e_t = diffusion.reverse_kernel(b_t, t, backbone, "x0")
 
-            loss = l2_loss(e_t, e_0)
+            loss = l2_loss(b_t, b_0)
             backbone.optim.zero_grad()
             loss.backward()
             backbone.optim.step()
